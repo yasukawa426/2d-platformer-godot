@@ -44,26 +44,28 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cabdp"]
-size = Vector2(100, 150)
+size = Vector2(98, 148)
 
 [node name="Player" type="CharacterBody2D" unique_id=454002819]
 texture_filter = 1
 script = ExtResource("1_75vfm")
 
 [node name="Sprite" type="Node2D" parent="." unique_id=680137471]
+position = Vector2(0, 74)
 
 [node name="Sprite2D" type="Sprite2D" parent="Sprite" unique_id=1144674230]
+position = Vector2(0, -74)
 texture = ExtResource("2_qek5x")
 
 [node name="LeftMarker2D" type="Marker2D" parent="Sprite" unique_id=735031000]
-position = Vector2(-20, -34)
+position = Vector2(-20, -108)
 
 [node name="RightMarker2D" type="Marker2D" parent="Sprite" unique_id=947999287]
-position = Vector2(20.000002, -34)
+position = Vector2(20.000002, -107.99999)
 scale = Vector2(1.75, 1.75)
 
 [node name="FaceAnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite" unique_id=1122853812]
-position = Vector2(20, -34)
+position = Vector2(20, -107.99999)
 scale = Vector2(1.75, 1.75)
 sprite_frames = SubResource("SpriteFrames_cabdp")
 animation = &"run"
@@ -72,10 +74,14 @@ animation = &"run"
 shape = SubResource("RectangleShape2D_cabdp")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2010106613]
-offset = Vector2(0, -235)
-zoom = Vector2(0.6, 0.6)
+offset = Vector2(0, -316)
+zoom = Vector2(0.7, 0.7)
 process_callback = 0
 position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_top_margin = 0.8
+drag_bottom_margin = 0.8
 
 [node name="StateMachine" type="Node" parent="." unique_id=1175196843 node_paths=PackedStringArray("starting_state")]
 script = ExtResource("2_0owmy")
