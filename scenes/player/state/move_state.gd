@@ -6,6 +6,10 @@ extends State
 
 #TODO: side jump ---> <-- Jump.
 
+## List for the player input and applies horizontal movement.
+## Changes face animation based on speed.
+## Changes face position based on movement direction
+## Transitions to FallState if not on floor and to IdleState if there is no movement
 func process_physics(delta: float) -> State:
 	var direction: float = Input.get_axis("move_left", "move_right")
 	apply_horizontal_movement(direction, delta)
@@ -30,11 +34,13 @@ func process_physics(delta: float) -> State:
 	flatten()
 	return
 
+## Transitions to jump state.
 func process_input(event: InputEvent) -> State:
 	if event.is_action_pressed("jump") and parent.is_on_floor():
 		return jump_state
 	return
 
+## Animates the player sprite with a squatch effect
 func flatten() -> void:
 	var stretch: float = abs(parent.velocity.x * 0.00005)
 	var squash: float = 1.0 - stretch

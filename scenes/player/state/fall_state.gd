@@ -6,6 +6,9 @@ extends State
 ## The multiplier to apply to the gravity when falling (make it fall faster, for example). 
 @export var _fall_gravity_multiplier: float = 1.2
 
+## Applies horizontal movement.
+## Applies gravity affect by `_fall_gravity_multiplier`.
+## Transitions to idle/move state when landing based on velocity.
 func process_physics(delta: float) -> State:
 	parent.velocity += _get_gravity() * delta * _fall_gravity_multiplier
 
@@ -24,5 +27,6 @@ func process_physics(delta: float) -> State:
 			
 	return
 
+## When landing, apply squish effect
 func exit() -> void:
 	squish(parent.sprite, true)

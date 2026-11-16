@@ -5,6 +5,7 @@ extends Node
 ## Default starting state for the player (probably idle)
 @export var starting_state: State
 
+## Debug label for displaying current state
 @onready var state_label: Label = $"../DebugCanvasLayer/StateLabel"
 
 ## Current active state.

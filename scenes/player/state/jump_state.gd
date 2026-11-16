@@ -7,13 +7,15 @@ extends State
 ## Amount of vertical speed gained when jumping
 @export var jump_velocity: float = -1400
 
-
+## On enter apply jump velocity and squish effect.
 func enter() -> void:
 	super()
 	parent.velocity.y = jump_velocity
 	squish(parent.sprite, false)
 
-
+## Applies horizontal movement.
+## If the player lets go of the jump key, halves the vertical speed, ending the jump earlier.
+## Transitions to FallState when vertical velocity is 0 and to idle/move states if somehow manage to land on floor with positive vertical velocity.
 func process_physics(delta: float) -> State:
 	parent.velocity += _get_gravity() * delta
 	

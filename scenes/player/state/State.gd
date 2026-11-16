@@ -59,6 +59,9 @@ func process_input(_event: InputEvent) -> State:
 	return
 
 
+## Accelerates the player in the input direction.
+## Applies stronger deceleration when reversing direction.
+## Gradually slows the player to a stop when no direction is held.
 func apply_horizontal_movement(direction: float, delta: float):
 	var velocity: Vector2 = parent.velocity
 
@@ -75,7 +78,9 @@ func apply_horizontal_movement(direction: float, delta: float):
 	
 	parent.velocity = velocity
 
-
+## Animates [param sprite_node] with a squash or stretch effect.
+## [param landing] determines whether to squash (true) or stretch (false).
+## [param duration] controls the duration of each animation phase.
 func squish(sprite_node: Node2D, landing: bool, duration: float = 0.1) -> void:
 	const VARIATION: float = 0.15
 
@@ -103,7 +108,9 @@ func squish(sprite_node: Node2D, landing: bool, duration: float = 0.1) -> void:
 		duration
 	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
-
+## Change face to a new animation with a pop effect.
+## [param new_animation_name] which animation we should change to.
+## [param frame] which frame should be moved to 
 func _change_animation(new_animation_name: String, frame: int) -> void:
 	var animator: AnimatedSprite2D = parent.face_animator
 
@@ -116,5 +123,3 @@ func _change_animation(new_animation_name: String, frame: int) -> void:
 
 		animator.animation = new_animation_name
 		animator.frame = frame
-
-#FIXME: scale is not reseted properly when going from moving scale to other stuff
