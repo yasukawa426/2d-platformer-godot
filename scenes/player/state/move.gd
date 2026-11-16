@@ -39,12 +39,5 @@ func flatten() -> void:
 	var stretch: float = abs(parent.velocity.x * 0.00005)
 	var squash: float = 1.0 - stretch
 	var sprite = parent.sprite
-	
-	# sprite.scale = Vector2(1 + multiplier, 1 - multiplier) # flatten it maintaining volume. so, shorter but longer
-	# sprite.position.y = multiplier * 100 # move the sprite based on the multiplier so it doesnt start floating
-	#sprite.skew = 1 * multiplier
-	
-
 
 	sprite.scale = Vector2(1.0 + stretch, squash)
-	sprite.position.y = stretch * 100.0

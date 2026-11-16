@@ -11,6 +11,7 @@ extends State
 func enter() -> void:
 	super()
 	parent.velocity.y = jump_velocity
+	squish(parent.sprite, false)
 
 
 func process_physics(delta: float) -> State:
@@ -23,7 +24,6 @@ func process_physics(delta: float) -> State:
 	var direction: float = Input.get_axis("move_left", "move_right")
 	apply_horizontal_movement(direction, delta)
 	
-	squish()
 
 	parent.move_and_slide()
 
@@ -35,6 +35,3 @@ func process_physics(delta: float) -> State:
 			return move_state
 			
 	return
-
-func exit() -> void:
-	squish()
