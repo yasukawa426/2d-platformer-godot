@@ -55,8 +55,15 @@ script = ExtResource("1_75vfm")
 [node name="Sprite2D" type="Sprite2D" parent="Sprite" unique_id=1144674230]
 texture = ExtResource("2_qek5x")
 
-[node name="FaceAnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite" unique_id=1122853812]
+[node name="LeftMarker2D" type="Marker2D" parent="Sprite" unique_id=735031000]
+position = Vector2(-20, -34)
+
+[node name="RightMarker2D" type="Marker2D" parent="Sprite" unique_id=947999287]
 position = Vector2(20.000002, -34)
+scale = Vector2(1.75, 1.75)
+
+[node name="FaceAnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite" unique_id=1122853812]
+position = Vector2(20, -34)
 scale = Vector2(1.75, 1.75)
 sprite_frames = SubResource("SpriteFrames_cabdp")
 animation = &"run"

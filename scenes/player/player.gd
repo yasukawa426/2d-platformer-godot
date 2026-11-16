@@ -17,6 +17,8 @@ extends CharacterBody2D
 @onready var face_animator: AnimatedSprite2D = $Sprite/FaceAnimatedSprite2D
 @onready var state_machine: StateMachine = $StateMachine
 
+@onready var left_marker_2d: Marker2D = $Sprite/LeftMarker2D
+@onready var right_marker_2d: Marker2D = $Sprite/RightMarker2D
 
 
 func _ready() -> void:

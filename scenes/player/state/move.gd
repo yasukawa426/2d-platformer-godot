@@ -14,6 +14,8 @@ func process_physics(delta: float) -> State:
 		_change_animation(_animation_name, 1)
 	else:
 		_change_animation(_animation_name, 0)
+	
+	parent.face_animator.position= parent.left_marker_2d.position if direction < 0 else parent.right_marker_2d.position
 
 	if not parent.is_on_floor():
 		return fall_state
