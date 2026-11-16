@@ -104,6 +104,7 @@ func _change_animation(new_animation_name: String, frame: int) -> void:
 	var animator: AnimatedSprite2D = parent.face_animator
 
 	if new_animation_name != animator.animation or frame != animator.frame:
+		#FIXME: kill any running tween before starting a new one
 		var tween: Tween = animator.create_tween()
 		var initial_scale: Vector2 = animator.scale
 		animator.scale = initial_scale * 1.1
@@ -111,3 +112,5 @@ func _change_animation(new_animation_name: String, frame: int) -> void:
 
 		animator.animation = new_animation_name
 		animator.frame = frame
+
+#FIXME: scale is not reseted properly when going from moving scale to other stuff
