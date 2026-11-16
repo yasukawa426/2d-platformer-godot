@@ -1,8 +1,8 @@
 [20 Games Catalogue.](https://github.com/yasukawa426/20-games-challenge-catalog)
 
-## Game X of 20 - Title Here
+## Game 6 of 20 - Title Here
 
-Game's explanation + purpose of developing it
+2d platformer developed as the sixth game for the 20 games challenge.
 
 ### Gameplay Video
 
