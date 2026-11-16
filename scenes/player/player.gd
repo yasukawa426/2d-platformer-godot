@@ -13,11 +13,11 @@ extends CharacterBody2D
 # const IDLE_DECELERATION: float = ACCELERATION / 2
 
 
-@onready var sprite: MeshInstance2D = $Sprite
+@onready var sprite: Node2D = $Sprite
+@onready var face_animator: AnimatedSprite2D = $Sprite/FaceAnimatedSprite2D
 @onready var state_machine: StateMachine = $StateMachine
 
-#TODO: mario side jump ---> <-- Jump.
-const SPEED: float = 300.0
+
 
 func _ready() -> void:
 	state_machine.init(self)

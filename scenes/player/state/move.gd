@@ -4,9 +4,16 @@ extends State
 @export var jump_state: State
 @export var fall_state: State
 
+#TODO: side jump ---> <-- Jump.
+
 func process_physics(delta: float) -> State:
 	var direction: float = Input.get_axis("move_left", "move_right")
 	apply_horizontal_movement(direction, delta)
+	
+	if abs(parent.velocity.x) >= MAX_SPEED * 0.9:
+		_change_animation(_animation_name, 1)
+	else:
+		_change_animation(_animation_name, 0)
 
 	if not parent.is_on_floor():
 		return fall_state

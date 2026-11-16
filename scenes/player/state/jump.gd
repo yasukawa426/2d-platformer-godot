@@ -9,6 +9,7 @@ extends State
 
 
 func enter() -> void:
+	super()
 	parent.velocity.y = jump_velocity
 
 

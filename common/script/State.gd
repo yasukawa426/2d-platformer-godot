@@ -3,9 +3,14 @@ class_name State extends Node
 ##  Default base state class each State will extend.
 ##  States can implement their own version of predefined functions. If they want to main the predefined behavior they must call `super()` inside its implementation followed by their new wanted behavior. 
 
+enum Animations {
+	IDLE,
+	RUN,
+}
 
 # ## The animation that should be played on this state
-# @export var animation_name: String
+@export var animation: Animations
+var _animation_name: String
 
 ## Players max horizontal speed
 const MAX_SPEED: float = 2000 # pixels/s
@@ -26,7 +31,15 @@ func _get_gravity() -> Vector2:
 
 
 func enter() -> void:
-	return
+	match animation:
+		Animations.IDLE:
+			_animation_name = "idle"
+		Animations.RUN:
+			_animation_name = "run"
+		_:
+			_animation_name = "idle"
+		
+	_change_animation(_animation_name, 0)
 
 
 func exit() -> void:
@@ -67,9 +80,21 @@ func squish() -> void:
 	var velocity = parent.velocity
 	var sprite = parent.sprite
 	
-	var multiplier =  abs(velocity.y * 0.00005)
+	var multiplier = abs(velocity.y * 0.00005)
 	
 	
-	sprite.scale = Vector2(1 - multiplier, 1 + multiplier ) # flatten it maintaining volume. so, shorter but longer
+	sprite.scale = Vector2(1 - multiplier, 1 + multiplier) # flatten it maintaining volume. so, shorter but longer
 	#sprite.position.y = multiplier * -100 # move the sprite based on the multiplier so it doesnt start floating
 	#sprite.skew = 1 * multiplier
+
+func _change_animation(new_animation_name: String, frame: int) -> void:
+	var animator: AnimatedSprite2D = parent.face_animator
+
+	if new_animation_name != animator.animation or frame != animator.frame:
+		var tween: Tween = animator.create_tween()
+		var initial_scale: Vector2 = animator.scale
+		animator.scale = initial_scale * 1.1
+		tween.tween_property(animator, "scale", initial_scale, 0.05)
+
+		animator.animation = new_animation_name
+		animator.frame = frame
