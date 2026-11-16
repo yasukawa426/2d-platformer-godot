@@ -1,0 +1,38 @@
+extends State
+
+@export var idle_state: State
+@export var jump_state: State
+@export var fall_state: State
+
+func process_physics(delta: float) -> State:
+	var direction: float = Input.get_axis("move_left", "move_right")
+	apply_horizontal_movement(direction, delta)
+
+	if not parent.is_on_floor():
+		return fall_state
+	
+	if parent.velocity == Vector2.ZERO and direction == 0:
+		return idle_state
+
+	parent.move_and_slide()
+	flatten()
+	return
+
+func process_input(event: InputEvent) -> State:
+	if event.is_action_pressed("jump") and parent.is_on_floor():
+		return jump_state
+	return
+
+func flatten() -> void:
+	var stretch: float = abs(parent.velocity.x * 0.00005)
+	var squash: float = 1.0 - stretch
+	var sprite = parent.sprite
+	
+	# sprite.scale = Vector2(1 + multiplier, 1 - multiplier) # flatten it maintaining volume. so, shorter but longer
+	# sprite.position.y = multiplier * 100 # move the sprite based on the multiplier so it doesnt start floating
+	#sprite.skew = 1 * multiplier
+	
+
+
+	sprite.scale = Vector2(1.0 + stretch, squash)
+	sprite.position.y = stretch * 100.0

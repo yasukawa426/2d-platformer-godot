@@ -1,6 +1,11 @@
 [gd_scene format=3 uid="uid://culixhm65yekp"]
 
-[ext_resource type="Script" uid="uid://cjj4idfocuwmf" path="res://scenes/player/player.gd" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://ch1t5b7um60ey" path="res://scenes/player/player.gd" id="1_75vfm"]
+[ext_resource type="Script" uid="uid://c1j3ux7efe8mi" path="res://scenes/player/state/state_machine.gd" id="2_0owmy"]
+[ext_resource type="Script" uid="uid://by21ors0hqkr1" path="res://scenes/player/state/idle.gd" id="3_qek5x"]
+[ext_resource type="Script" uid="uid://b844klqoit460" path="res://scenes/player/state/move.gd" id="4_5gtgg"]
+[ext_resource type="Script" uid="uid://bspf5ppo5u0dw" path="res://scenes/player/state/fall.gd" id="5_h17s1"]
+[ext_resource type="Script" uid="uid://qjpl30toxcxu" path="res://scenes/player/state/jump.gd" id="6_je7p5"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_cabdp"]
 size = Vector3(100, 150, 1)
@@ -9,7 +14,7 @@ size = Vector3(100, 150, 1)
 size = Vector2(100, 150)
 
 [node name="Player" type="CharacterBody2D" unique_id=454002819]
-script = ExtResource("1_3vyb7")
+script = ExtResource("1_75vfm")
 
 [node name="Sprite" type="MeshInstance2D" parent="." unique_id=543152468]
 mesh = SubResource("BoxMesh_cabdp")
@@ -22,3 +27,38 @@ offset = Vector2(0, -235)
 zoom = Vector2(0.6, 0.6)
 process_callback = 0
 position_smoothing_enabled = true
+
+[node name="StateMachine" type="Node" parent="." unique_id=1175196843 node_paths=PackedStringArray("starting_state")]
+script = ExtResource("2_0owmy")
+starting_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=1707470922 node_paths=PackedStringArray("move_state", "jump_state", "fall_state")]
+script = ExtResource("3_qek5x")
+move_state = NodePath("../Move")
+jump_state = NodePath("../Jump")
+fall_state = NodePath("../Fall")
+
+[node name="Move" type="Node" parent="StateMachine" unique_id=1352115535 node_paths=PackedStringArray("idle_state", "jump_state", "fall_state")]
+script = ExtResource("4_5gtgg")
+idle_state = NodePath("../Idle")
+jump_state = NodePath("../Jump")
+fall_state = NodePath("../Fall")
+
+[node name="Fall" type="Node" parent="StateMachine" unique_id=183991148 node_paths=PackedStringArray("move_state", "idle_state")]
+script = ExtResource("5_h17s1")
+move_state = NodePath("../Move")
+idle_state = NodePath("../Idle")
+
+[node name="Jump" type="Node" parent="StateMachine" unique_id=1966961449 node_paths=PackedStringArray("fall_state", "idle_state", "move_state")]
+script = ExtResource("6_je7p5")
+fall_state = NodePath("../Fall")
+idle_state = NodePath("../Idle")
+move_state = NodePath("../Move")
+jump_velocity = null
+
+[node name="DebugCanvasLayer" type="CanvasLayer" parent="." unique_id=1569663387]
+visible = false
+
+[node name="StateLabel" type="Label" parent="DebugCanvasLayer" unique_id=740219559]
+offset_right = 40.0
+offset_bottom = 23.0
