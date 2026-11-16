@@ -3,8 +3,11 @@ extends State
 @export var move_state: State
 @export var idle_state: State
 
+## The multiplier to apply to the gravity when falling (make it fall faster, for example). 
+@export var _fall_gravity_multiplier: float = 1.2
+
 func process_physics(delta: float) -> State:
-	parent.velocity += _get_gravity() * delta
+	parent.velocity += _get_gravity() * delta * _fall_gravity_multiplier
 
 
 	var direction: float = Input.get_axis("move_left", "move_right")

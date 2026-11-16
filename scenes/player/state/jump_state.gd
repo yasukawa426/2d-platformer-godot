@@ -5,7 +5,7 @@ extends State
 @export var move_state: State
 
 ## Amount of vertical speed gained when jumping
-@export var jump_velocity: float = -1000
+@export var jump_velocity: float = -1400
 
 
 func enter() -> void:
