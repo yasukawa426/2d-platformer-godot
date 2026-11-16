@@ -14,7 +14,7 @@ func process_physics(delta: float) -> State:
 
 	# if landed on floor go to idle or move states
 	if parent.is_on_floor(): 
-		if direction == 0:
+		if direction == 0 and parent.velocity.x == 0:
 			return idle_state
 		else:
 			return move_state
