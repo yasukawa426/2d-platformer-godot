@@ -20,6 +20,11 @@ extends CharacterBody2D
 @onready var left_marker_2d: Marker2D = $Sprite/LeftMarker2D
 @onready var right_marker_2d: Marker2D = $Sprite/RightMarker2D
 
+## Initial sprites scale
+@onready var initial_sprite_scale: Vector2 = sprite.scale
+
+## Tween responsible for squishing the player when jumping and landing.
+var squish_tween: Tween;
 
 func _ready() -> void:
 	state_machine.init(self)
