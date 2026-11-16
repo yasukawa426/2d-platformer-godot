@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://lvyiwb7kkn65"]
+
+[ext_resource type="Texture2D" uid="uid://c0yccke485wbx" path="res://addons/godot-prototype-texture/PNG/checker_512x512/checker_black_512x512.png" id="1_nc2n1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mbakg"]
+size = Vector2(4598, 512)
+
+[node name="PlatformLong" type="StaticBody2D" unique_id=355523435]
+
+[node name="Sprites" type="Node2D" parent="." unique_id=1824311479]
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprites" unique_id=298614247]
+texture = ExtResource("1_nc2n1")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Sprites" unique_id=251400112]
+position = Vector2(512, 0)
+texture = ExtResource("1_nc2n1")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Sprites" unique_id=253106787]
+position = Vector2(-1531, 0)
+texture = ExtResource("1_nc2n1")
+
+[node name="Sprite2D5" type="Sprite2D" parent="Sprites" unique_id=1714778958]
+position = Vector2(-1019, 0)
+texture = ExtResource("1_nc2n1")
+
+[node name="Sprite2D6" type="Sprite2D" parent="Sprites" unique_id=1938945226]
+position = Vector2(-2043, 0)
+texture = ExtResource("1_nc2n1")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Sprites" unique_id=1682002423]
+position = Vector2(-512, 0)
+texture = ExtResource("1_nc2n1")
+
+[node name="Sprite2D7" type="Sprite2D" parent="Sprites" unique_id=1906568454]
+position = Vector2(1536, 0)
+texture = ExtResource("1_nc2n1")
+
+[node name="Sprite2D8" type="Sprite2D" parent="Sprites" unique_id=1086094862]
+position = Vector2(2048, 0)
+texture = ExtResource("1_nc2n1")
+
+[node name="Sprite2D9" type="Sprite2D" parent="Sprites" unique_id=631845337]
+position = Vector2(1024, 0)
+texture = ExtResource("1_nc2n1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=326583331]
+shape = SubResource("RectangleShape2D_mbakg")
