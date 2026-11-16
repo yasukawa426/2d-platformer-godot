@@ -76,14 +76,27 @@ func apply_horizontal_movement(direction: float, delta: float):
 	parent.velocity = velocity
 
 ## fixme: bugged, doesnt reset properly
-func squish() -> void:
-	var velocity = parent.velocity
-	var sprite = parent.sprite
+func squish(sprite_node: Node2D, landing: bool, duration: float = 0.1) -> void:
+	const VARIATION: float = 0.15
+	var initial_scale: Vector2 = sprite_node.scale
+	var new_scale: Vector2 = initial_scale + (Vector2(VARIATION, VARIATION * -1) if landing else Vector2(VARIATION * -1, VARIATION))
+
+	var tween = create_tween()
+	tween.tween_property(
+		sprite_node,
+		"scale",
+		new_scale,
+		duration
+	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	
-	var multiplier = abs(velocity.y * 0.00005)
+	tween.chain().tween_property(
+		sprite_node,
+		"scale",
+		initial_scale,
+		duration
+	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	
-	
-	sprite.scale = Vector2(1 - multiplier, 1 + multiplier) # flatten it maintaining volume. so, shorter but longer
+	#sprite.scale = Vector2(1 - multiplier, 1 + multiplier) # flatten it maintaining volume. so, shorter but longer
 	#sprite.position.y = multiplier * -100 # move the sprite based on the multiplier so it doesnt start floating
 	#sprite.skew = 1 * multiplier
 
