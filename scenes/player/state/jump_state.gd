@@ -20,6 +20,8 @@ func process_physics(delta: float) -> State:
 	var direction: float = Input.get_axis("move_left", "move_right")
 	apply_horizontal_movement(direction, delta)
 	
+	if Input.is_action_just_released("jump"):
+		parent.velocity.y *= 0.5
 	
 	parent.move_and_slide()
 	# if we are no longer going up, change to fall state
