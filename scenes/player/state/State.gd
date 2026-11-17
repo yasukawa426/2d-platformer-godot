@@ -1,7 +1,7 @@
 @abstract
 class_name State extends Node
 ##  Default base state class each State will extend.
-##  States can implement their own version of predefined functions. If they want to main the predefined behavior they must call `super()` inside its implementation followed by their new wanted behavior. 
+##  States can implement their own version of predefined functions. If they want to main the predefined behavior they must call `super(_old_state)` inside its implementation followed by their new wanted behavior. 
 
 enum Animations {
 	IDLE,
@@ -40,8 +40,8 @@ func get_state_name() -> States
 func _get_gravity() -> Vector2:
 	return parent.get_gravity()
 
-
-func enter() -> void:
+## `_old_state` represent the current state before transitioning into this one.
+func enter(_old_state: States) -> void:
 	match animation:
 		Animations.IDLE:
 			_animation_name = "idle"

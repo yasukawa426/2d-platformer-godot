@@ -18,7 +18,7 @@ func  get_state_name() -> States:
 
 ## Returns the gravity vector computed from all sources affecting the player (so normal gravity + area gravitys, etc):
 
-func enter() -> void:
+func enter(_old_state: States) -> void:
 	#FIXME: do not add coyote time when transitioning from jump state
 	_coyote_timer = _coyote_time
 

@@ -25,11 +25,14 @@ func init(parent: Player) -> void:
 
 ## Change to the new starting calling any exit logic and then enter logic for new state.
 func change_state(new_state: State) -> void:
+	var old_state: State.States 
 	if current_state:
 		current_state.exit()
+		old_state = current_state.get_state_name()
+	
 	
 	current_state = new_state
-	current_state.enter()
+	current_state.enter(old_state)
 	state_label.text = "State: " + str(current_state).split(":")[0]
 
 ## Pass Physics, Frame and Input process for the player, handling state changes if necessary.

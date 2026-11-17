@@ -13,8 +13,8 @@ func get_state_name() -> States:
 @export var jump_velocity: float = -1400
 
 ## On enter apply jump velocity and squish effect.
-func enter() -> void:
-	super()
+func enter(_old_state: States) -> void:
+	super(_old_state)
 	parent.velocity.y = jump_velocity
 	squish(parent.sprite, false)
 
