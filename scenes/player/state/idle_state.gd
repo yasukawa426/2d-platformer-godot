@@ -4,6 +4,23 @@ extends State
 @export var jump_state: State
 @export var fall_state: State
 
+## Idle time in seconds needed for the player to start sleeping 
+@export var _sleep_time: float = 10
+## The amount the player get flattened when sleeping
+@export var _flat_intesity: float = 0.15
+
+## Time since entered idle state
+var _idle_time: float
+## If the player is sleeping (passed enough idle time for him to start sleeping)
+var _sleeping: bool = false
+
+
+func enter(_old_state: States) -> void:
+	super(_old_state)
+
+	_idle_time = 0
+	_sleeping = false
+
 
 func get_state_name() -> States:
 	return States.IDLE
@@ -27,4 +44,32 @@ func process_physics(delta: float) -> State:
 	if not parent.is_on_floor():
 		return fall_state
 	
-	return 
+	return
+
+
+func process_frame(delta: float) -> State:
+	_idle_time += delta
+
+	if _idle_time >= _sleep_time and not _sleeping:
+		_sleeping = true
+		_change_animation(parent.face_animator.animation, 1)
+		# flatten(_flat_intesity, 1)
+
+	if _sleeping and not parent.squish_tween.is_running():
+		squish(parent.sprite, true, 2 )
+	return
+
+
+func exit() -> void:
+	if parent.squish_tween and parent.squish_tween.is_running():
+		parent.squish_tween.kill()
+
+	parent.squish_tween = parent.create_tween()
+	var tween = parent.squish_tween
+
+	tween.tween_property(
+		parent.sprite,
+		"scale",
+		parent.initial_sprite_scale,
+		0.1
+	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
