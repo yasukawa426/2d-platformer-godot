@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://ch1t5b7um60ey" path="res://scenes/player/player.gd" id="1_75vfm"]
 [ext_resource type="Script" uid="uid://c1j3ux7efe8mi" path="res://scenes/player/state/state_machine.gd" id="2_0owmy"]
-[ext_resource type="Texture2D" uid="uid://mcrpwtafldtr" path="res://assets/sprites/player_faces.png" id="2_5gtgg"]
-[ext_resource type="Texture2D" uid="uid://djs3uxsev2i73" path="res://assets/sprites/player_body.png" id="2_qek5x"]
+[ext_resource type="Texture2D" uid="uid://mcrpwtafldtr" path="res://assets/img/sprites/player_faces.png" id="2_5gtgg"]
+[ext_resource type="Texture2D" uid="uid://djs3uxsev2i73" path="res://assets/img/sprites/player_body.png" id="2_qek5x"]
 [ext_resource type="Script" uid="uid://by21ors0hqkr1" path="res://scenes/player/state/idle_state.gd" id="3_qek5x"]
 [ext_resource type="Script" uid="uid://b844klqoit460" path="res://scenes/player/state/move_state.gd" id="4_5gtgg"]
 [ext_resource type="Script" uid="uid://bspf5ppo5u0dw" path="res://scenes/player/state/fall_state.gd" id="5_h17s1"]
@@ -48,6 +48,10 @@ size = Vector2(96, 145)
 
 [node name="Player" type="CharacterBody2D" unique_id=454002819]
 texture_filter = 1
+collision_layer = 2
+collision_mask = 5
+platform_floor_layers = 4294967289
+platform_wall_layers = 1
 script = ExtResource("1_75vfm")
 
 [node name="Sprite" type="Node2D" parent="." unique_id=680137471]
@@ -97,10 +101,11 @@ jump_state = NodePath("../JumpState")
 fall_state = NodePath("../FallState")
 animation = 1
 
-[node name="FallState" type="Node" parent="StateMachine" unique_id=183991148 node_paths=PackedStringArray("move_state", "idle_state")]
+[node name="FallState" type="Node" parent="StateMachine" unique_id=183991148 node_paths=PackedStringArray("move_state", "idle_state", "jump_state")]
 script = ExtResource("5_h17s1")
 move_state = NodePath("../MoveState")
 idle_state = NodePath("../IdleState")
+jump_state = NodePath("../JumpState")
 _fall_gravity_multiplier = 1.7
 animation = 1
 
