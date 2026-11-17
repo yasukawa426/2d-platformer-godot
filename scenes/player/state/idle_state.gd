@@ -4,6 +4,10 @@ extends State
 @export var jump_state: State
 @export var fall_state: State
 
+
+func get_state_name() -> States:
+	return States.IDLE
+
 ## Transitions to move and jump states based on player input.
 func process_input(event: InputEvent) -> State:
 	if event.is_action_pressed("jump") and parent.is_on_floor():

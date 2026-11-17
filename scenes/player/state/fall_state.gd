@@ -12,6 +12,12 @@ extends State
 var _coyote_timer: float = 0
 var _buffer_timer: float = 0
 
+
+func  get_state_name() -> States:
+	return States.FALL
+
+## Returns the gravity vector computed from all sources affecting the player (so normal gravity + area gravitys, etc):
+
 func enter() -> void:
 	#FIXME: do not add coyote time when transitioning from jump state
 	_coyote_timer = _coyote_time

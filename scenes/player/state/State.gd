@@ -8,6 +8,14 @@ enum Animations {
 	RUN,
 }
 
+## Avaible states
+enum States {
+	IDLE,
+	MOVE,
+	JUMP,
+	FALL,
+}
+
 # ## The animation that should be played on this state
 @export var animation: Animations
 var _animation_name: String
@@ -24,6 +32,9 @@ const IDLE_DECELERATION: float = ACCELERATION / 2
 ## Reference to the player so that the state can control it.
 var parent: Player
 
+@abstract
+func get_state_name() -> States
+## Should return state
 
 ## Returns the gravity vector computed from all sources affecting the player (so normal gravity + area gravitys, etc)
 func _get_gravity() -> Vector2:

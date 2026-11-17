@@ -4,6 +4,11 @@ extends State
 @export var idle_state: State
 @export var move_state: State
 
+
+func get_state_name() -> States:
+	return States.JUMP
+
+
 ## Amount of vertical speed gained when jumping
 @export var jump_velocity: float = -1400
 

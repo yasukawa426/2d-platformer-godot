@@ -6,6 +6,10 @@ extends State
 
 #TODO: side jump ---> <-- Jump.
 
+
+func get_state_name() -> States:
+	return States.JUMP
+
 ## List for the player input and applies horizontal movement.
 ## Changes face animation based on speed.
 ## Changes face position based on movement direction
