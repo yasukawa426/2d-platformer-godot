@@ -83,9 +83,10 @@ animation = &"idle"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2010106613]
 offset = Vector2(0, -316)
-zoom = Vector2(0.7, 0.7)
+zoom = Vector2(0.6, 0.6)
 process_callback = 0
 position_smoothing_enabled = true
+position_smoothing_speed = 8.0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 drag_top_margin = 0.8
@@ -119,6 +120,7 @@ script = ExtResource("6_je7p5")
 fall_state = NodePath("../FallState")
 idle_state = NodePath("../IdleState")
 move_state = NodePath("../MoveState")
+_minimum_jump_time = 0.15
 animation = 1
 
 [node name="DebugCanvasLayer" type="CanvasLayer" parent="." unique_id=1569663387]
