@@ -2,13 +2,24 @@ extends State
 
 @export var move_state: State
 @export var idle_state: State
+@export var jump_state: State
 
 ## The multiplier to apply to the gravity when falling (make it fall faster, for example). 
 @export var _fall_gravity_multiplier: float = 1.2
+@export var _coyote_time: float = 0.2
+@export var _jump_buffer_time: float = 0.2
+
+var _coyote_timer: float = 0
+var _buffer_timer: float = 0
+
+func enter() -> void:
+	#FIXME: do not add coyote time when transitioning from jump state
+	_coyote_timer = _coyote_time
 
 ## Applies horizontal movement.
 ## Applies gravity affect by `_fall_gravity_multiplier`.
 ## Transitions to idle/move state when landing based on velocity.
+## Transitions to jump state if there is jump buffer time left
 func process_physics(delta: float) -> State:
 	parent.velocity += _get_gravity() * delta * _fall_gravity_multiplier
 
@@ -19,12 +30,33 @@ func process_physics(delta: float) -> State:
 	parent.move_and_slide()
 
 	# if landed on floor go to idle or move states
+	# if there is jump buffer time go to jump state instead
 	if parent.is_on_floor():
-		if direction == 0 and parent.velocity.x == 0:
+		if _buffer_timer > 0:
+			return jump_state
+
+		elif direction == 0 and parent.velocity.x == 0:
 			return idle_state
 		else:
 			return move_state
 			
+	return
+
+func process_frame(delta: float) -> State:
+	_coyote_timer -= delta
+	_buffer_timer -= delta
+
+	return
+
+## When pressing jump:
+## If there is coyote time left - jump. else add buffer jump time
+func process_input(event: InputEvent) -> State:
+	if event.is_action_pressed("jump"):
+		if _coyote_timer > 0:
+			return jump_state
+		
+		_buffer_timer = _jump_buffer_time
+	
 	return
 
 ## When landing, apply squish effect
