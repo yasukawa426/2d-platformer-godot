@@ -5,7 +5,7 @@ extends State
 @export var jump_state: State
 
 ## The multiplier to apply to the gravity when falling (make it fall faster, for example). 
-@export var _fall_gravity_multiplier: float = 1.2
+@export var _fall_gravity_multiplier: float = 2
 @export var _coyote_time: float = 0.2
 @export var _jump_buffer_time: float = 0.2
 
@@ -29,11 +29,15 @@ func enter(_old_state: States) -> void:
 ## Transitions to idle/move state when landing based on velocity.
 ## Transitions to jump state if there is jump buffer time left
 func process_physics(delta: float) -> State:
-	parent.velocity += _get_gravity() * delta * _fall_gravity_multiplier
-
-
 	var direction: float = Input.get_axis("move_left", "move_right")
+	if Input.is_action_pressed("jump"):
+		parent.velocity += _get_gravity() * delta
+	else:
+		parent.velocity += _get_gravity() * delta * _fall_gravity_multiplier
+
+
 	apply_horizontal_movement(direction, delta)
+
 
 	parent.move_and_slide()
 
