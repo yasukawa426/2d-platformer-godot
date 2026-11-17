@@ -8,7 +8,7 @@ extends State
 
 
 func get_state_name() -> States:
-	return States.JUMP
+	return States.MOVE
 
 ## List for the player input and applies horizontal movement.
 ## Changes face animation based on speed.
