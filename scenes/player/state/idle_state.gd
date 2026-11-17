@@ -14,7 +14,7 @@ var _idle_time: float
 ## If the player is sleeping (passed enough idle time for him to start sleeping)
 var _sleeping: bool = false
 
-
+## Resets sleep trackers
 func enter(_old_state: States) -> void:
 	super(_old_state)
 
@@ -46,20 +46,23 @@ func process_physics(delta: float) -> State:
 	
 	return
 
-
+## If _sleep_time has passed plays a sleeping animation
 func process_frame(delta: float) -> State:
 	_idle_time += delta
 
 	if _idle_time >= _sleep_time and not _sleeping:
+		var direction: float
+		direction = -1 if parent.face_animator.position == parent.left_marker_2d.position else 1
+
 		_sleeping = true
 		_change_animation(parent.face_animator.animation, 1)
-		# flatten(_flat_intesity, 1)
+		parent.face_animator.rotate(deg_to_rad(20 * direction))
 
 	if _sleeping and not parent.squish_tween.is_running():
-		squish(parent.sprite, true, 2 )
+		squish(parent.sprite, true, 2)
 	return
 
-
+## Resets player to initial scale and rotation
 func exit() -> void:
 	if parent.squish_tween and parent.squish_tween.is_running():
 		parent.squish_tween.kill()
@@ -73,3 +76,4 @@ func exit() -> void:
 		parent.initial_sprite_scale,
 		0.1
 	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	parent.face_animator.rotation = deg_to_rad(0)
