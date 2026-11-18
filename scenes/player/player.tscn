@@ -77,8 +77,8 @@ position = Vector2(20.000002, -107.99999)
 scale = Vector2(1.75, 1.75)
 
 [node name="FaceAnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite" unique_id=1122853812]
-position = Vector2(20, -107.99999)
-scale = Vector2(1.75, 1.75)
+position = Vector2(15, -107.799995)
+scale = Vector2(2.2, 2.2)
 sprite_frames = SubResource("SpriteFrames_0owmy")
 animation = &"idle"
 
