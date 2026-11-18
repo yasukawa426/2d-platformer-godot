@@ -26,9 +26,13 @@ extends CharacterBody2D
 
 ## Initial sprites scale
 @onready var initial_sprite_scale: Vector2 = sprite.scale
+## Initial face sprites scale
+@onready var initial_face_scale: Vector2 = face_animator.scale
 
 ## Tween responsible for squishing the player when jumping and landing.
 var squish_tween: Tween;
+## Tween responsible for deforming the face sprites
+var face_tween: Tween;
 
 func _ready() -> void:
 	state_machine.init(self)
