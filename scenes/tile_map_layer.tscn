@@ -1,0 +1,78 @@
+[gd_scene format=4 uid="uid://chahliwhvoxvd"]
+
+[ext_resource type="Texture2D" uid="uid://c8rtj00xdm7fc" path="res://addons/godot-prototype-texture/PNG/checker_512x512/checker_blue_512x512.png" id="1_wipo8"]
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_jyhfs"]
+tile_data = PackedInt32Array(0, 2, 0, 65536, 2, 1, 196608, 2, 1, 327680, 2, 3, 1, 65538, 0, 65537, 65538, 1, 196609, 65538, 1, 327681, 65538, 3, 3, 65538, 0, 65539, 65538, 1, 196611, 65538, 1, 327683, 65538, 3, 5, 196610, 0, 65541, 196610, 1, 196613, 196610, 1, 327685, 196610, 3)
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_tbgi4"]
+tile_data = PackedInt32Array(0, 65538, 0)
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_tefeu"]
+tile_data = PackedInt32Array(0, 2, 1)
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_o6xl0"]
+tile_data = PackedInt32Array(0, 196610, 1)
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_tipki"]
+tile_data = PackedInt32Array(0, 65538, 3)
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_85g3d"]
+tile_data = PackedInt32Array(0, 65538, 1)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jyhfs"]
+texture = ExtResource("1_wipo8")
+texture_region_size = Vector2i(128, 128)
+0:0/next_alternative_id = 6
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+3:0/next_alternative_id = 3
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+3:3/next_alternative_id = 2
+3:3/0 = 0
+3:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+0:3/next_alternative_id = 2
+0:3/0 = 0
+0:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+1:0/size_in_atlas = Vector2i(2, 1)
+1:0/next_alternative_id = 3
+1:0/0 = 0
+1:0/0/texture_origin = Vector2i(-64, 0)
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 192, -64, 192, 64, -64, 64)
+1:3/size_in_atlas = Vector2i(2, 1)
+1:3/next_alternative_id = 2
+1:3/0 = 0
+1:3/0/texture_origin = Vector2i(-64, 0)
+1:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 192, -64, 192, 64, -64, 64)
+0:1/size_in_atlas = Vector2i(1, 2)
+0:1/next_alternative_id = 2
+0:1/0 = 0
+0:1/0/texture_origin = Vector2i(0, -64)
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 192, -64, 192)
+3:1/size_in_atlas = Vector2i(1, 2)
+3:1/next_alternative_id = 2
+3:1/0 = 0
+3:1/0/texture_origin = Vector2i(0, -64)
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 192, -64, 192)
+1:1/size_in_atlas = Vector2i(2, 2)
+1:1/next_alternative_id = 4
+1:1/0 = 0
+1:1/0/texture_origin = Vector2i(-64, -64)
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 192, -64, 192, 192, -64, 192)
+
+[sub_resource type="TileSet" id="TileSet_4aeyv"]
+tile_size = Vector2i(128, 128)
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 6
+sources/2 = SubResource("TileSetAtlasSource_jyhfs")
+pattern_0 = SubResource("TileMapPattern_jyhfs")
+pattern_1 = SubResource("TileMapPattern_tbgi4")
+pattern_2 = SubResource("TileMapPattern_tefeu")
+pattern_3 = SubResource("TileMapPattern_o6xl0")
+pattern_4 = SubResource("TileMapPattern_tipki")
+pattern_5 = SubResource("TileMapPattern_85g3d")
+
+[node name="TileMapLayer" type="TileMapLayer" unique_id=2147427766]
+tile_map_data = PackedByteArray("AAADAAEAAgABAAEAAAAFAAEAAgABAAEAAAAHAAEAAgABAAEAAAAKAAEAAgABAAEAAAAJAAEAAgABAAEAAAAJAAQAAgABAAEAAAD7/wMAAgABAAEAAAD6/wMAAgABAAEAAAD5/wMAAgABAAEAAAD4/wMAAgABAAEAAAD3/wMAAgABAAEAAAD2/wMAAgABAAEAAAD1/wMAAgABAAEAAAD0/wIAAgABAAEAAADz/wEAAgABAAEAAADy/wEAAgABAAEAAADx/wAAAgABAAEAAADw////AgABAAEAAADw//7/AgABAAEAAADv//7/AgABAAEAAADv//3/AgABAAEAAADv//z/AgABAAEAAADv//v/AgABAAEAAADv//r/AgABAAEAAADv//n/AgABAAEAAADw//n/AgABAAEAAADw//j/AgABAAEAAADw//f/AgABAAEAAADx//f/AgABAAEAAADx//b/AgABAAEAAADy//b/AgABAAEAAADz//b/AgABAAEAAAD0//b/AgABAAEAAAD0//X/AgABAAEAAAD1//X/AgABAAEAAAD2//X/AgABAAEAAAD3//X/AgABAAEAAAD3//b/AgABAAEAAAD4//b/AgABAAEAAAD4//f/AgABAAEAAAD5//j/AgABAAEAAAD6//j/AgABAAEAAAD6//n/AgABAAEAAAD7//n/AgABAAEAAAD7//r/AgABAAEAAAD8//r/AgABAAEAAAD8//v/AgABAAEAAAD9//v/AgABAAEAAAD+//v/AgABAAEAAAD+//z/AgABAAEAAAD+//3/AgABAAEAAAD9//7/AgABAAEAAAD8////AgABAAEAAAD7/wAAAgABAAEAAAD6/wAAAgABAAEAAAD5/wEAAgABAAEAAAD4/wEAAgABAAEAAAD3/wIAAgABAAEAAAD2/wIAAgABAAEAAAD1/wQAAgABAAEAAAD0/wQAAgABAAEAAADz/wUAAgABAAEAAADz/wYAAgABAAEAAADy/wcAAgABAAEAAADx/wgAAgABAAEAAADw/wgAAgABAAEAAADv/wkAAgABAAEAAADt/wsAAgABAAEAAADt/wkAAgABAAEAAADu/wkAAgABAAEAAADf/xEAAgABAAEAAADd/w8AAgABAAEAAADc/w4AAgABAAEAAADb/w0AAgABAAEAAADa/wwAAgABAAEAAADa/wsAAgABAAEAAADZ/woAAgABAAEAAADY/woAAgABAAEAAADX/wkAAgABAAEAAADW/wgAAgABAAEAAADV/wcAAgABAAEAAADV/wYAAgABAAEAAADU/wUAAgABAAEAAADT/wQAAgABAAEAAADS/wMAAgABAAEAAADR/wMAAgABAAEAAADR/wIAAgABAAEAAADQ/wEAAgABAAEAAADQ/wAAAgABAAEAAADP////AgABAAEAAADP//7/AgABAAEAAADP//3/AgABAAEAAADQ//3/AgABAAEAAADQ//z/AgABAAEAAADQ//v/AgABAAEAAADR//v/AgABAAEAAADS//r/AgABAAEAAADT//r/AgABAAEAAADU//r/AgABAAEAAADU//n/AgABAAEAAADV//n/AgABAAEAAADW//n/AgABAAEAAADX//r/AgABAAEAAADY//r/AgABAAEAAADZ//r/AgABAAEAAADZ//v/AgABAAEAAADa//v/AgABAAEAAADa//z/AgABAAEAAADb//z/AgABAAEAAADb//3/AgABAAEAAADb//7/AgABAAEAAADb////AgABAAEAAADc/wAAAgABAAEAAADd/wAAAgABAAEAAADd////AgABAAEAAADe//7/AgABAAEAAADf//3/AgABAAEAAADg//z/AgABAAEAAADh//z/AgABAAEAAADh//v/AgABAAEAAADi//v/AgABAAEAAADj//v/AgABAAEAAADk//v/AgABAAEAAADl//v/AgABAAEAAADl//z/AgABAAEAAADm//z/AgABAAEAAADn//3/AgABAAEAAADo//3/AgABAAEAAADo//7/AgABAAEAAADo////AgABAAEAAADp/wAAAgABAAEAAADp/wEAAgABAAEAAADp/wIAAgABAAEAAADp/wMAAgABAAEAAADq/wMAAgABAAEAAADq/wQAAgABAAEAAADq/wUAAgABAAEAAADp/wYAAgABAAEAAADp/wcAAgABAAEAAADp/wgAAgABAAEAAADo/wkAAgABAAEAAADo/woAAgABAAEAAADo/wsAAgABAAEAAADn/wsAAgABAAEAAADn/wwAAgABAAEAAADm/wwAAgABAAEAAADl/w4AAgABAAEAAADk/w8AAgABAAEAAADj/xAAAgABAAEAAADi/xAAAgABAAEAAADi/xEAAgABAAEAAADh/xEAAgABAAEAAADh/xIAAgABAAEAAADg/xIAAgABAAEAAAA=")
+tile_set = SubResource("TileSet_4aeyv")
