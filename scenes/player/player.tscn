@@ -91,8 +91,9 @@ position_smoothing_speed = 8.0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 drag_left_margin = 0.1
-drag_top_margin = 0.7
+drag_top_margin = 0.5
 drag_right_margin = 0.1
+editor_draw_drag_margin = true
 
 [node name="StateMachine" type="Node" parent="." unique_id=1175196843 node_paths=PackedStringArray("starting_state")]
 script = ExtResource("2_0owmy")
