@@ -16,7 +16,7 @@ func get_state_name() -> States:
 ## Transitions to FallState if not on floor and to IdleState if there is no movement
 func process_physics(delta: float) -> State:
 	var direction: float = Input.get_axis("move_left", "move_right")
-	apply_horizontal_movement(direction, delta)
+	apply_horizontal_movement(direction, false, delta)
 	
 	if abs(parent.velocity.x) >= MAX_SPEED * 0.9:
 		_change_animation(_animation_name, 1)

@@ -7,7 +7,7 @@ extends State
 ## The multiplier to apply to the gravity when falling (make it fall faster, for example). 
 @export var _fall_gravity_multiplier: float = 2
 @export var _coyote_time: float = 0.2
-@export var _jump_buffer_time: float = 0.2
+@export var _jump_buffer_time: float = 0.15
 
 var _coyote_timer: float = 0
 var _buffer_timer: float = 0
@@ -36,7 +36,7 @@ func process_physics(delta: float) -> State:
 		parent.velocity += _get_gravity() * delta * _fall_gravity_multiplier
 
 
-	apply_horizontal_movement(direction, delta)
+	apply_horizontal_movement(direction, true, delta)
 
 
 	parent.move_and_slide()

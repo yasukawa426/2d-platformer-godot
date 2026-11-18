@@ -30,7 +30,7 @@ func enter(_old_state: States) -> void:
 func process_physics(delta: float) -> State:
 	parent.velocity += _get_gravity() * delta
 	var direction: float = Input.get_axis("move_left", "move_right")
-	apply_horizontal_movement(direction, delta)
+	apply_horizontal_movement(direction, true, delta)
 	
 	
 	if not Input.is_action_pressed("jump") and _jump_timer <= 0:

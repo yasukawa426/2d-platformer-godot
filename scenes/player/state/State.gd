@@ -29,6 +29,12 @@ const DECELERATION: float = ACCELERATION * 3
 ## Deceleration amount when the player isn't pressening anything. Friction I guess 
 const IDLE_DECELERATION: float = ACCELERATION / 2
 
+const AIR_ACCELERATION: float = MAX_SPEED / 2 # pixels/s²
+## Deceleration when going in the opposite direction of the current movement.
+const AIR_DECELERATION: float = DECELERATION
+## Deceleration amount when the player isn't pressening anything. Friction I guess 
+const AIR_IDLE_DECELERATION: float = AIR_ACCELERATION / 2
+
 ## Reference to the player so that the state can control it.
 var parent: Player
 
@@ -73,17 +79,20 @@ func process_input(_event: InputEvent) -> State:
 ## Accelerates the player in the input direction.
 ## Applies stronger deceleration when reversing direction.
 ## Gradually slows the player to a stop when no direction is held.
-func apply_horizontal_movement(direction: float, delta: float):
+func apply_horizontal_movement(direction: float, air: bool, delta: float):
 	var velocity: Vector2 = parent.velocity
+	var acceleration = AIR_ACCELERATION if air else ACCELERATION
+	var deceleration = AIR_DECELERATION if air else DECELERATION
+	var idle_deceleration = AIR_IDLE_DECELERATION if air else IDLE_DECELERATION
 
 	if direction:
 		#it means we are trying to go in the oposite direction
 		if direction != signf(velocity.x):
-			velocity.x += direction * DECELERATION * delta # so the (des)acceleration is twice as strong
+			velocity.x += direction * deceleration * delta # so the (des)acceleration is twice as strong
 		else:
-			velocity.x += direction * ACCELERATION * delta
+			velocity.x += direction * acceleration * delta
 	else:
-		velocity.x = move_toward(velocity.x, 0, IDLE_DECELERATION * delta)
+		velocity.x = move_toward(velocity.x, 0, idle_deceleration * delta)
 
 	velocity.x = clamp(velocity.x, MAX_SPEED * -1, MAX_SPEED)
 	
