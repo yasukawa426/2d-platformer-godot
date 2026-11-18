@@ -14,6 +14,7 @@ enum States {
 	MOVE,
 	JUMP,
 	FALL,
+	CUTSCENE,
 }
 
 # ## The animation that should be played on this state
