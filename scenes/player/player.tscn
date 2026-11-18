@@ -93,6 +93,7 @@ drag_vertical_enabled = true
 drag_left_margin = 0.1
 drag_top_margin = 0.5
 drag_right_margin = 0.1
+drag_bottom_margin = 0.1
 editor_draw_drag_margin = true
 
 [node name="StateMachine" type="Node" parent="." unique_id=1175196843 node_paths=PackedStringArray("starting_state")]
