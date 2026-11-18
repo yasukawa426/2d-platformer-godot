@@ -135,9 +135,13 @@ func _change_animation(new_animation_name: String, frame: int) -> void:
 	var animator: AnimatedSprite2D = parent.face_animator
 
 	if new_animation_name != animator.animation or frame != animator.frame:
-		#FIXME: kill any running tween before starting a new one
-		var tween: Tween = animator.create_tween()
-		var initial_scale: Vector2 = animator.scale
+		if parent.face_tween and parent.face_tween.is_running():
+			parent.face_tween.kill()
+
+		parent.face_tween = parent.create_tween()
+		var tween = parent.face_tween
+		
+		var initial_scale: Vector2 = parent.initial_face_scale
 		animator.scale = initial_scale * 1.1
 		tween.tween_property(animator, "scale", initial_scale, 0.05)
 
