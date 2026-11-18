@@ -4,7 +4,7 @@ extends State
 @export var jump_state: State
 @export var fall_state: State
 
-#TODO: side jump ---> <-- Jump.
+#TODO: side jump ---> <-- Jump. Gotta be going in the opposite direction but have a set minimum speed
 
 
 func get_state_name() -> States:

@@ -26,6 +26,9 @@ var squish_tween: Tween;
 ## Tween responsible for deforming the face sprites
 var face_tween: Tween;
 
+# TODO:
+# implement side jump
+# implement wall jump
 
 func _ready() -> void:
 	state_machine.init(self)
