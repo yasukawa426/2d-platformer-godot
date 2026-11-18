@@ -6,18 +6,27 @@ extends Node
 @export var starting_state: State
 
 ## Debug label for displaying current state
-@onready var state_label: Label = $"../DebugCanvasLayer/StateLabel"
+@onready var state_label: Label = $"../DebugCanvasLayer/GridContainer/StateLabel"
+## Debug label for displayng which surface player is touching (wall, floor and ceiling)
+@onready var surface_label: Label = $"../DebugCanvasLayer/GridContainer/SurfaceLabel"
+
+## Root node of this Scene (the player)
+var _parent: CharacterBody2D
 
 ## Current active state.
 var current_state: State
+var is_debug: bool = false
 
 
 ## Initializes the state machine, passing a player reference to all avaibles states and then enter the default `stating_state`.
 func init(parent: Player) -> void:
 	for child in get_children(): # give the player node to each state so they can affect the player duh
 		child.parent = parent
-		
-	if OS.is_debug_build():
+	
+	_parent = parent
+	
+	is_debug = OS.is_debug_build()
+	if is_debug:
 		$"../DebugCanvasLayer".show()
 	
 	change_state(starting_state)# initializes to the default state
@@ -33,11 +42,28 @@ func change_state(new_state: State) -> void:
 	
 	current_state = new_state
 	current_state.enter(old_state)
-	state_label.text = "State: " + str(current_state).split(":")[0]
+	
+	if is_debug:
+		state_label.text = "State: " + str(current_state).split(":")[0]
 
 ## Pass Physics, Frame and Input process for the player, handling state changes if necessary.
 func process_input(event: InputEvent) -> void:
 	var new_state = current_state.process_input(event)
+	
+	if is_debug:		
+		if _parent:
+			var surfaces: PackedStringArray = []
+			if _parent.is_on_floor():
+				surfaces.append("Floor")
+			if _parent.is_on_wall():
+				surfaces.append("Wall")
+			if _parent.is_on_ceiling():
+				surfaces.append("Ceiling")
+			
+			var final_string = "Surfaces: " + " and ".join(surfaces)
+			
+			if final_string != surface_label.text:
+				surface_label.text = final_string
 
 	if new_state:
 		change_state(new_state)

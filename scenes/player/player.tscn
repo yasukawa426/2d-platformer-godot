@@ -108,32 +108,38 @@ fall_state = NodePath("../FallState")
 
 [node name="MoveState" type="Node" parent="StateMachine" unique_id=1352115535 node_paths=PackedStringArray("idle_state", "jump_state", "fall_state")]
 script = ExtResource("4_5gtgg")
+animation = 1
 idle_state = NodePath("../IdleState")
 jump_state = NodePath("../JumpState")
 fall_state = NodePath("../FallState")
-animation = 1
 
 [node name="FallState" type="Node" parent="StateMachine" unique_id=183991148 node_paths=PackedStringArray("move_state", "idle_state", "jump_state")]
 script = ExtResource("5_h17s1")
+animation = 1
 move_state = NodePath("../MoveState")
 idle_state = NodePath("../IdleState")
 jump_state = NodePath("../JumpState")
-animation = 1
 
 [node name="JumpState" type="Node" parent="StateMachine" unique_id=1966961449 node_paths=PackedStringArray("fall_state", "idle_state", "move_state")]
 script = ExtResource("6_je7p5")
+_minimum_jump_time = 0.15
+animation = 1
 fall_state = NodePath("../FallState")
 idle_state = NodePath("../IdleState")
 move_state = NodePath("../MoveState")
-_minimum_jump_time = 0.15
-animation = 1
 
 [node name="DebugCanvasLayer" type="CanvasLayer" parent="." unique_id=1569663387]
 visible = false
 
-[node name="StateLabel" type="Label" parent="DebugCanvasLayer" unique_id=740219559]
+[node name="GridContainer" type="GridContainer" parent="DebugCanvasLayer" unique_id=16714643]
 offset_right = 40.0
-offset_bottom = 23.0
+offset_bottom = 40.0
+
+[node name="StateLabel" type="Label" parent="DebugCanvasLayer/GridContainer" unique_id=740219559]
+layout_mode = 2
+
+[node name="SurfaceLabel" type="Label" parent="DebugCanvasLayer/GridContainer" unique_id=1538854198]
+layout_mode = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1153901556]
 position = Vector2(0, 1.5)
