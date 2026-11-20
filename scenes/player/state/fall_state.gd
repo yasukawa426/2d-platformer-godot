@@ -7,6 +7,7 @@ extends State
 ## The multiplier to apply to the gravity when falling (make it fall faster, for example). 
 @export var _fall_gravity_multiplier: float = 2
 @export var _coyote_time: float = 0.2
+
 @export var _jump_buffer_time: float = 0.15
 
 var _coyote_timer: float = 0
@@ -19,6 +20,7 @@ func  get_state_name() -> States:
 ## Returns the gravity vector computed from all sources affecting the player (so normal gravity + area gravitys, etc):
 
 func enter(_old_state: States) -> void:
+	_buffer_timer = 0
 	if _old_state == States.JUMP:
 		_coyote_timer = 0
 	else:
