@@ -4,7 +4,9 @@ extends State
 @export var idle_state: State
 @export var move_state: State
 
-@export var _second_jump_modifier: float = 1.2
+## The modifier for jump strength when doing a big jump
+@export var _big_jump_modifier: float = 1.2
+## Minimum amount of time that the player gains vertical speed while not holding jump 
 @export var _minimum_jump_time: float = 0.2 
 
 var _jump_timer: float = 0
@@ -23,7 +25,7 @@ func enter(_old_state: States) -> void:
 	_jump_timer = _minimum_jump_time
 	
 	if _old_state == States.FALL:
-		parent.velocity.y = jump_velocity * _second_jump_modifier
+		parent.velocity.y = jump_velocity * _big_jump_modifier
 	else:
 		parent.velocity.y = jump_velocity
 	squish(parent.sprite, false)
