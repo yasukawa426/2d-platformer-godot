@@ -1,8 +1,8 @@
-extends State
+extends PlayerState
 
-@export var idle_state: State
-@export var jump_state: State
-@export var fall_state: State
+@export var idle_state: PlayerState
+@export var jump_state: PlayerState
+@export var fall_state: PlayerState
 
 #TODO: side jump ---> <-- Jump. Gotta be going in the opposite direction but have a set minimum speed
 
@@ -14,8 +14,8 @@ func get_state_name() -> States:
 ## Changes face animation based on speed.
 ## Changes face position based on movement direction
 ## Transitions to FallState if not on floor and to IdleState if there is no movement
-func process_physics(delta: float) -> State:
-	var direction: float = Input.get_axis("move_left", "move_right")
+func process_physics(delta: float) -> PlayerState:
+	var direction: float = _get_movement_direction_input()
 	apply_horizontal_movement(direction, false, delta)
 	
 	if abs(parent.velocity.x) >= MAX_SPEED * 0.9:
@@ -39,7 +39,7 @@ func process_physics(delta: float) -> State:
 	return
 
 ## Transitions to jump state.
-func process_input(event: InputEvent) -> State:
+func process_input(event: InputEvent) -> PlayerState:
 	if event.is_action_pressed("jump") and parent.is_on_floor():
 		return jump_state
 	return

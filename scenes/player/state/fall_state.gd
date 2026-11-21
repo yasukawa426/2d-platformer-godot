@@ -1,8 +1,8 @@
-extends State
+extends PlayerState
 
-@export var move_state: State
-@export var idle_state: State
-@export var jump_state: State
+@export var move_state: PlayerState
+@export var idle_state: PlayerState
+@export var jump_state: PlayerState
 
 ## The multiplier to apply to the gravity when falling (make it fall faster, for example). 
 @export var _fall_gravity_multiplier: float = 2
@@ -30,9 +30,9 @@ func enter(_old_state: States) -> void:
 ## Applies gravity affect by `_fall_gravity_multiplier`.
 ## Transitions to idle/move state when landing based on velocity.
 ## Transitions to jump state if there is jump buffer time left
-func process_physics(delta: float) -> State:
-	var direction: float = Input.get_axis("move_left", "move_right")
-	if Input.is_action_pressed("jump"):
+func process_physics(delta: float) -> PlayerState:
+	var direction: float = _get_movement_direction_input()
+	if _get_jump():
 		parent.velocity += _get_gravity() * delta
 	else:
 		parent.velocity += _get_gravity() * delta * _fall_gravity_multiplier
@@ -56,7 +56,7 @@ func process_physics(delta: float) -> State:
 			
 	return
 
-func process_frame(delta: float) -> State:
+func process_frame(delta: float) -> PlayerState:
 	_coyote_timer -= delta
 	_buffer_timer -= delta
 
@@ -64,8 +64,11 @@ func process_frame(delta: float) -> State:
 
 ## When pressing jump:
 ## If there is coyote time left - jump. else add buffer jump time
-func process_input(event: InputEvent) -> State:
+func process_input(event: InputEvent) -> PlayerState:
 	if event.is_action_pressed("jump"):
+		# if parent.is_on_wall_only():
+			
+		
 		if _coyote_timer > 0:
 			return jump_state
 		

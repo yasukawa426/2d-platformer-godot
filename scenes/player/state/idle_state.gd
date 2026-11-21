@@ -1,13 +1,13 @@
-extends State
+extends PlayerState
 
-@export var move_state: State
-@export var jump_state: State
-@export var fall_state: State
+@export var move_state: PlayerState
+@export var jump_state: PlayerState
+@export var fall_state: PlayerState
 
 ## Idle time in seconds needed for the player to start sleeping 
 @export var _sleep_time: float = 10
 ## The amount the player get flattened when sleeping
-@export var _flat_intesity: float = 0.15
+# @export var _flat_intesity: float = 0.15
 
 ## Time since entered idle state
 var _idle_time: float
@@ -26,18 +26,18 @@ func get_state_name() -> States:
 	return States.IDLE
 
 ## Transitions to move and jump states based on player input.
-func process_input(event: InputEvent) -> State:
+func process_input(event: InputEvent) -> PlayerState:
 	if event.is_action_pressed("jump") and parent.is_on_floor():
 		return jump_state
 	
-	if event.is_action_pressed("move_left") or event.is_action_pressed("move_right"):
+	if _get_movement_direction_input() != 0:
 		return move_state
 	
 	return
 
 
 ## Applies gravity. If the player is not on the floor (while still in the idle_state) goes to fall_state 
-func process_physics(delta: float) -> State:
+func process_physics(delta: float) -> PlayerState:
 	parent.velocity += _get_gravity() * delta
 	parent.move_and_slide()
 	
@@ -47,7 +47,7 @@ func process_physics(delta: float) -> State:
 	return
 
 ## If _sleep_time has passed plays a sleeping animation
-func process_frame(delta: float) -> State:
+func process_frame(delta: float) -> PlayerState:
 	_idle_time += delta
 
 	if _idle_time >= _sleep_time and not _sleeping:

@@ -1,13 +1,13 @@
-extends State
+extends PlayerState
 
-@export var fall_state: State
-@export var idle_state: State
-@export var move_state: State
+@export var fall_state: PlayerState
+@export var idle_state: PlayerState
+@export var move_state: PlayerState
 
 ## The modifier for jump strength when doing a big jump
 @export var _big_jump_modifier: float = 1.2
 ## Minimum amount of time that the player gains vertical speed while not holding jump 
-@export var _minimum_jump_time: float = 0.2 
+@export var _minimum_jump_time: float = 0.2
 
 var _jump_timer: float = 0
 
@@ -33,13 +33,13 @@ func enter(_old_state: States) -> void:
 ## Applies horizontal movement.
 ## If the player lets go of the jump key, halves the vertical speed, ending the jump earlier.
 ## Transitions to FallState when vertical velocity is 0 and to idle/move states if somehow manage to land on floor with positive vertical velocity.
-func process_physics(delta: float) -> State:
+func process_physics(delta: float) -> PlayerState:
 	parent.velocity += _get_gravity() * delta
-	var direction: float = Input.get_axis("move_left", "move_right")
+	var direction: float = _get_movement_direction_input()
 	apply_horizontal_movement(direction, true, delta)
 	
 	
-	if not Input.is_action_pressed("jump") and _jump_timer <= 0:
+	if not _get_jump() and _jump_timer <= 0:
 		parent.velocity.y *= 0.5
 
 	parent.move_and_slide()
@@ -57,7 +57,7 @@ func process_physics(delta: float) -> State:
 			
 	return
 
-func process_frame(delta: float) -> State:
+func process_frame(delta: float) -> PlayerState:
 	_jump_timer -= delta
 	
 	return

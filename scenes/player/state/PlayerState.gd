@@ -1,5 +1,6 @@
+## Base state for each of the player's states
 @abstract
-class_name State extends Node
+class_name PlayerState extends BaseState
 ##  Default base state class each State will extend.
 ##  States can implement their own version of predefined functions. If they want to main the predefined behavior they must call `super(_old_state)` inside its implementation followed by their new wanted behavior. 
 
@@ -36,12 +37,10 @@ const AIR_DECELERATION: float = DECELERATION
 ## Deceleration amount when the player isn't pressening anything. Friction I guess 
 const AIR_IDLE_DECELERATION: float = AIR_ACCELERATION / 2
 
-## Reference to the player so that the state can control it.
-var parent: Player
 
+## Should return its state enum 
 @abstract
 func get_state_name() -> States
-## Should return state
 
 ## Returns the gravity vector computed from all sources affecting the player (so normal gravity + area gravitys, etc)
 func _get_gravity() -> Vector2:
@@ -65,15 +64,15 @@ func exit() -> void:
 
 
 ## By default, all State apply gravity when not on floor. 
-func process_physics(_delta: float) -> State:
+func process_physics(_delta: float) -> PlayerState:
 	return
 
 
-func process_frame(_delta: float) -> State:
+func process_frame(_delta: float) -> PlayerState:
 	return
 
 
-func process_input(_event: InputEvent) -> State:
+func process_input(_event: InputEvent) -> PlayerState:
 	return
 
 
@@ -148,3 +147,10 @@ func _change_animation(new_animation_name: String, frame: int) -> void:
 
 		animator.animation = new_animation_name
 		animator.frame = frame
+
+## Which direction the player will move
+func _get_movement_direction_input() -> float:
+		return Input.get_axis("move_left", "move_right")
+
+func _get_jump() -> bool:
+	return Input.is_action_pressed("jump")

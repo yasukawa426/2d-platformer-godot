@@ -3,7 +3,7 @@ extends Node
 ## Handles the player's state. It pass through function for the player to call and changes states as needed.
 
 ## Default starting state for the player (probably idle)
-@export var starting_state: State
+@export var starting_state: PlayerState
 
 ## Debug label for displaying current state
 @onready var state_label: Label = $"../DebugCanvasLayer/GridContainer/StateLabel"
@@ -14,7 +14,7 @@ extends Node
 var _parent: CharacterBody2D
 
 ## Current active state.
-var current_state: State
+var current_state: PlayerState
 var is_debug: bool = false
 
 
@@ -33,8 +33,8 @@ func init(parent: Player) -> void:
 
 
 ## Change to the new starting calling any exit logic and then enter logic for new state.
-func change_state(new_state: State) -> void:
-	var old_state: State.States 
+func change_state(new_state: PlayerState) -> void:
+	var old_state: PlayerState.States 
 	if current_state:
 		current_state.exit()
 		old_state = current_state.get_state_name()
