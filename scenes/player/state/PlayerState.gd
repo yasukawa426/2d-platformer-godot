@@ -33,7 +33,7 @@ const IDLE_DECELERATION: float = ACCELERATION / 2
 
 const AIR_ACCELERATION: float = MAX_SPEED / 2 # pixels/s²
 ## Deceleration when going in the opposite direction of the current movement.
-const AIR_DECELERATION: float = DECELERATION
+const AIR_DECELERATION: float = DECELERATION / 3
 ## Deceleration amount when the player isn't pressening anything. Friction I guess 
 const AIR_IDLE_DECELERATION: float = AIR_ACCELERATION / 2
 
