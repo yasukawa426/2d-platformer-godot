@@ -37,6 +37,8 @@ const AIR_DECELERATION: float = DECELERATION / 3
 ## Deceleration amount when the player isn't pressening anything. Friction I guess 
 const AIR_IDLE_DECELERATION: float = AIR_ACCELERATION / 2
 
+## Deceleration applied when faster than MAX_SPEED.
+const OVERSPEED_DECELERATION: float = MAX_SPEED / 4
 
 ## Should return its state enum 
 @abstract
@@ -87,15 +89,22 @@ func apply_horizontal_movement(direction: float, air: bool, delta: float):
 
 	if direction:
 		#it means we are trying to go in the oposite direction
-		if direction != signf(velocity.x):
-			velocity.x += direction * deceleration * delta # so the (des)acceleration is twice as strong
+		if _is_decelerating():
+			# velocity.x += direction * deceleration * delta # so the (des)acceleration is twice as strong
+			velocity.x = move_toward(velocity.x, 0, deceleration * delta)
 		else:
-			velocity.x += direction * acceleration * delta
+			# velocity.x += direction * acceleration * delta
+			velocity.x = move_toward(velocity.x, MAX_SPEED * direction, acceleration * delta)
 	else:
 		velocity.x = move_toward(velocity.x, 0, idle_deceleration * delta)
 
-	velocity.x = clamp(velocity.x, MAX_SPEED * -1, MAX_SPEED)
-	
+	if abs(velocity.x) > MAX_SPEED:
+		velocity.x = move_toward(
+		velocity.x,
+		clamp(velocity.x, -MAX_SPEED, MAX_SPEED),
+		OVERSPEED_DECELERATION * delta
+	)
+
 	parent.velocity = velocity
 
 ## Animates [param sprite_node] with a squash or stretch effect.
