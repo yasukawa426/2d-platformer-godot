@@ -152,5 +152,16 @@ func _change_animation(new_animation_name: String, frame: int) -> void:
 func _get_movement_direction_input() -> float:
 		return Input.get_axis("move_left", "move_right")
 
+
+## Wether the body should jump (has pressed jump).
 func _get_jump() -> bool:
 	return Input.is_action_pressed("jump")
+
+
+## Wether the body is decelerating (the direction input is in the opposite direction from the current velocity vector) 
+func _is_decelerating() -> bool:
+	var direction: float = _get_movement_direction_input()
+	if parent.velocity.x == 0 or direction == 0:
+		return false
+			
+	return direction != signf(parent.velocity.x)
