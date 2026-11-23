@@ -6,8 +6,15 @@ extends PlayerState
 
 ## The modifier for jump strength when doing a big jump
 @export var _big_jump_modifier: float = 1.2
+## Modifier for the movement when doing a side flip. Applied to the rotated `jump_velocity` vector.
+@export var _side_flip_modifier: Vector2 = Vector2(1.2, 1)
+## Modifier for a wall jump. Applied to the rotated `jump_velocity` vector.
+@export var _wall_jump_modifier: Vector2 = Vector2(-1.2, 1.5)
+
 ## Minimum amount of time that the player gains vertical speed while not holding jump 
 @export var _minimum_jump_time: float = 0.2
+## Minimum speed required to still be able to do a side flip.
+@export var _minimum_side_flip_speed: float = 0.8 * MAX_SPEED
 
 var _jump_timer: float = 0
 var _jump_type: JumpTypes
@@ -29,11 +36,30 @@ enum JumpTypes {
 }
 
 ## On enter apply jump velocity and squish effect.
-func enter(_old_state: States) -> void:
-	super(_old_state)
-	
+func enter(old_state: States) -> void:
+	super(old_state)
+	var direction = _get_movement_direction_input()
 	_jump_timer = _minimum_jump_time
+
 	_jump_type = _get_jump_type(old_state)
+	
+	match _jump_type:
+		JumpTypes.NORMAL:
+			parent.velocity.y = jump_velocity
+		JumpTypes.BIG:
+			parent.velocity.y = jump_velocity * _big_jump_modifier
+		JumpTypes.WALL:
+			var vector = Vector2(0, jump_velocity)
+			parent.velocity = vector.rotated(deg_to_rad(45 * direction)) * _wall_jump_modifier
+			
+		JumpTypes.SIDE_FLIP:
+			var vector = Vector2(0, jump_velocity)
+			parent.velocity = vector.rotated(deg_to_rad(45 * direction)) * _side_flip_modifier
+		_:
+			parent.velocity.y = jump_velocity
+
+
+	print(JumpTypes.keys()[_jump_type])
 	squish(parent.sprite, false)
 
 ## Applies horizontal movement.
