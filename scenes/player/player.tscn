@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://djs3uxsev2i73" path="res://assets/img/sprites/player_body.png" id="2_qek5x"]
 [ext_resource type="Script" uid="uid://by21ors0hqkr1" path="res://scenes/player/state/idle_state.gd" id="3_qek5x"]
 [ext_resource type="Script" uid="uid://b844klqoit460" path="res://scenes/player/state/move_state.gd" id="4_5gtgg"]
+[ext_resource type="Script" uid="uid://bn2sqjk1mdqb0" path="res://scenes/player/camera_2d.gd" id="4_h17s1"]
 [ext_resource type="Script" uid="uid://bspf5ppo5u0dw" path="res://scenes/player/state/fall_state.gd" id="5_h17s1"]
 [ext_resource type="Script" uid="uid://qjpl30toxcxu" path="res://scenes/player/state/jump_state.gd" id="6_je7p5"]
 
