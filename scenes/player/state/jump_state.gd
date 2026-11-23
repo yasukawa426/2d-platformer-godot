@@ -7,7 +7,7 @@ extends PlayerState
 ## The modifier for jump strength when doing a big jump
 @export var _big_jump_modifier: float = 1.2
 ## Modifier for the movement when doing a side flip. Applied to the rotated `jump_velocity` vector.
-@export var _side_flip_modifier: Vector2 = Vector2(1.2, 1)
+@export var _side_flip_modifier: Vector2 = Vector2(1.2, 1.4)
 ## Modifier for a wall jump. Applied to the rotated `jump_velocity` vector.
 @export var _wall_jump_modifier: Vector2 = Vector2(-1.2, 1.5)
 
@@ -16,15 +16,17 @@ extends PlayerState
 ## Minimum speed required to still be able to do a side flip.
 @export var _minimum_side_flip_speed: float = 0.8 * MAX_SPEED
 
+## Amount of vertical speed gained when jumping
+@export var jump_velocity: float = -1400
+
 var _jump_timer: float = 0
 var _jump_type: JumpTypes
 
+@onready var _flip_tween: Tween
+
+
 func get_state_name() -> States:
 	return States.JUMP
-
-
-## Amount of vertical speed gained when jumping
-@export var jump_velocity: float = -1400
 
 
 ## All available jump types
@@ -55,6 +57,8 @@ func enter(old_state: States) -> void:
 		JumpTypes.SIDE_FLIP:
 			var vector = Vector2(0, jump_velocity)
 			parent.velocity = vector.rotated(deg_to_rad(45 * direction)) * _side_flip_modifier
+			_flip(direction)
+			#.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 		_:
 			parent.velocity.y = jump_velocity
 
@@ -103,3 +107,13 @@ func _get_jump_type(old_state: States) -> JumpTypes:
 		return JumpTypes.BIG
 	else:
 		return JumpTypes.NORMAL
+
+func _flip(direction: float) -> void:
+	## FIXME: make it slower?
+	var sprite: Node2D = parent.sprite
+	if _flip_tween and _flip_tween.is_running():
+		_flip_tween.kill()
+		parent.sprite.rotation = 0
+		
+	_flip_tween = create_tween()
+	_flip_tween.tween_property(sprite, "rotation", sprite.rotation + TAU * direction, 0.55)
