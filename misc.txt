@@ -1,0 +1,17 @@
+- https://www.youtube.com/watch?v=Bsy8pknHc0M - platformer movement tips
+- https://www.youtube.com/watch?v=-ZP2Xm-mY4E - introduction to FSM for gamedev
+- https://www.youtube.com/watch?v=oqFbZoA2lnU - starter FSM in Godot 4
+- https://www.youtube.com/watch?v=hG9SzQxaCm8 - Math for Game Programmers: Building a Better Jump
+- https://www.youtube.com/watch?v=dMkTdYmOgiQ - A Guide to Making Video Game Music
+https://www.youtube.com/watch?v=bNdFXooM1MQ
+dust when running at max speed, jumping and landing.
+trail at max speed
+lean when running?
+
+pick up that allows you to jump one more timer in the air - kinda like celest dash reset thingy
+initial cutscene: empty level, player walks into screen. Stops, thought ballon appears with a girl. Ballon pop. Player does a little change, and we start the level with the objective being reaching the girl. then "GO!"
+
+secret ending: Player stays afk for 5 minutes, screen fades to black - "You entered an extremely deep sleep state and will never wake up again..."
+
+
+breakable wall where you break by running into it wh .95 max speed
