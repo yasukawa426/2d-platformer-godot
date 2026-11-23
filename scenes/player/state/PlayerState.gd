@@ -38,7 +38,8 @@ const AIR_DECELERATION: float = DECELERATION / 3
 const AIR_IDLE_DECELERATION: float = AIR_ACCELERATION / 2
 
 ## Deceleration applied when faster than MAX_SPEED.
-const OVERSPEED_DECELERATION: float = MAX_SPEED / 4
+const OVERSPEED_DECELERATION: float = MAX_SPEED / 10
+
 
 ## Should return its state enum 
 @abstract
