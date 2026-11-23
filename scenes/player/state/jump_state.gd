@@ -10,6 +10,7 @@ extends PlayerState
 @export var _minimum_jump_time: float = 0.2
 
 var _jump_timer: float = 0
+var _jump_type: JumpTypes
 
 func get_state_name() -> States:
 	return States.JUMP
@@ -18,16 +19,21 @@ func get_state_name() -> States:
 ## Amount of vertical speed gained when jumping
 @export var jump_velocity: float = -1400
 
+
+## All available jump types
+enum JumpTypes {
+	NORMAL, ## Simple jump. Performed when on the ground.
+	BIG, ## Bigger normal jump. Performed when transitioning directly from Fallstate but no on wall. So used jump buffer or coyote time.
+	WALL, ## Wall jump. Performed when in the air while touching a wall.
+	SIDE_FLIP, ## Fas side flip jump. Performed when on the ground when actively decelerating.
+}
+
 ## On enter apply jump velocity and squish effect.
 func enter(_old_state: States) -> void:
 	super(_old_state)
 	
 	_jump_timer = _minimum_jump_time
-	
-	if _old_state == States.FALL:
-		parent.velocity.y = jump_velocity * _big_jump_modifier
-	else:
-		parent.velocity.y = jump_velocity
+	_jump_type = _get_jump_type(old_state)
 	squish(parent.sprite, false)
 
 ## Applies horizontal movement.
@@ -61,3 +67,13 @@ func process_frame(delta: float) -> PlayerState:
 	_jump_timer -= delta
 	
 	return
+
+func _get_jump_type(old_state: States) -> JumpTypes:
+	if parent.is_on_wall_only():
+		return JumpTypes.WALL
+	elif _is_decelerating() and abs(parent.velocity.x) >= _minimum_side_flip_speed:
+		return JumpTypes.SIDE_FLIP
+	elif old_state == States.FALL:
+		return JumpTypes.BIG
+	else:
+		return JumpTypes.NORMAL
