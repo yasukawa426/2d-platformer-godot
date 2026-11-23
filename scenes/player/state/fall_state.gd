@@ -14,7 +14,7 @@ var _coyote_timer: float = 0
 var _buffer_timer: float = 0
 
 
-func  get_state_name() -> States:
+func get_state_name() -> States:
 	return States.FALL
 
 ## Returns the gravity vector computed from all sources affecting the player (so normal gravity + area gravitys, etc):
@@ -66,8 +66,8 @@ func process_frame(delta: float) -> PlayerState:
 ## If there is coyote time left - jump. else add buffer jump time
 func process_input(event: InputEvent) -> PlayerState:
 	if event.is_action_pressed("jump"):
-		# if parent.is_on_wall_only():
-			
+		if parent.is_on_wall_only():
+			return jump_state
 		
 		if _coyote_timer > 0:
 			return jump_state
