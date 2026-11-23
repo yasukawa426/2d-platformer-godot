@@ -36,4 +36,5 @@ You can move and shoot and stuff and die.
 
 ### Credits
 
-xx by yy -- link <br/>
+Vanilla Milkshake Palette by Space Sandwich -- https://lospec.com/palette-list/vanilla-milkshake<br/>
+[The Shaggy Dev](https://www.youtube.com/@TheShaggyDev) for his amazing tutorials on Finite State Machines.
